@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras | Woodvalle Vinyl</title>
+    
+    <link rel="stylesheet" href="../css/styles.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .cart-container { width: 80%; margin: 50px auto; background-color: var(--card-bg-color); padding: 30px; border-radius: 10px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); border: 1px solid var(--tertiary-dark); margin-top: -80px;  position: relative; z-index: 10;}
+        .cart-container h1 { font-family: 'Lora', serif; font-size: 2.5rem; color: var(--primary-color); text-align: center; margin-bottom: 40px; }
+        .cart-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .cart-table th, .cart-table td { padding: 15px; text-align: left; border-bottom: 1px solid var(--secondary-accent); color: var(--text-color); }
+        .cart-table th { font-family: 'Lora', serif; font-weight: 700; background-color: var(--background-soft); }
+        .cart-product { display: flex; align-items: center; }
+        .cart-product img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 20px; border: 2px solid var(--tertiary-dark); }
+        .cart-product-info h4 { font-size: 1.1rem; margin: 0; color: var(--primary-color); }
+        .cart-product-info p { font-size: 0.9rem; margin: 5px 0 0 0; }
+        .cart-quantity input { width: 50px; padding: 5px; text-align: center; border: 1px solid var(--tertiary-dark); border-radius: 4px; }
+        .cart-summary { text-align: right; }
+        .cart-summary h3 { font-size: 1.5rem; margin-bottom: 20px; color: var(--primary-color); }
+        .summary-row { display: flex; justify-content: space-between; font-size: 1.1rem; margin-bottom: 10px; }
+        .summary-total { font-weight: bold; font-size: 1.4rem; margin-top: 15px; color: var(--background-vibrant); }
+        .checkout-button { display: block; width: 50%; padding: 15px; background-color: var(--primary-color); color: var(--light-color); border: none; border-radius: 8px; font-family: 'Lora', serif; font-size: 1.2rem; font-weight: bold; text-align: center; cursor: pointer; transition: background-color 0.3s ease; margin: 30px 0 0 auto; }
+        .checkout-button:hover { background-color: var(--tertiary-dark); }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="header-logo-container">
+            <img src="../assets/LOGO.webp" alt="WOODWALLE="main-logo">
+        </div>
+        
+        <div class="nav-links">
+            <p class="nav-slogan">Finaliza tu compra</p>
+            <div class="nav-buttons-group">
+                <a href="../index.html" class="nav-button dark-button home-button">Inicio</a>
+                <a href="./tienda.html">Tienda</a>
+                <a href="./login.html">Login</a>
+                <a href="./registro.html" class="nav-button">Registro</a>
+            </div>
+        </div>
+    </nav>
+
+        <main class="container"> 
+        
+        <section class="hero-section">
+            <img src="../assets/FOLKLORE.webp" alt="FOLKLORE" class="hero-image">
+        </section>
+        
+    </nav>
+
+    <main class="container">
+        <div class="cart-container">
+            <h1>Carrito de Compras</h1>
+            
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <th>Eliminar</th> </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+
+            <div class="cart-summary">
+                <h3>Resumen de la Compra</h3>
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Envío:</span>
+                    <span id="shipping">$0</span>
+                </div>
+                <hr>
+                <div class="summary-row summary-total">
+                    <span>Total Final:</span>
+                    <span id="total">$0</span>
+                </div>
+                <a href="#" class="checkout-button">Finalizar Compra</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/carrito.js"></script>
+</body>
+</html>

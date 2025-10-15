@@ -1,0 +1,45 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Woodvalle Vinyl</title>
+    <link rel="stylesheet" href="../css/styles.css"> 
+</head>
+<body>
+    
+    <div class="form-container">
+        
+        <div class="header-title-container">
+            <img src="../assets/LOGO.webp" alt="WOODVALLE" class="title-logo">
+            <h1 class="form-title">Registrar Usuario</h1>
+    </div>
+        <form id="formularioRegistro">
+            <label for="nombre">Nombre: </label>
+            <input type="text" id="nombre" name="nombre" required><br><br>
+
+            <label for="apellido">Apellido: </label>
+            <input type="text" id="apellido" name="apellido" required><br><br>
+
+            <label for="email">Email: </label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="password">Contraseña: </label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <label for="fecha">Fecha de nacimiento: </label>
+            <input type="date" id="fecha" name="fecha" required><br><br>
+
+            <button type="submit">Registrarse</button>
+        </form>
+
+        <p id="mensajeError" style="color: var(--secondary-accent); font-weight: bold; margin-top: 15px;"></p>
+        
+        <br>
+        <a href="../index.html">Volver al inicio</a>
+
+    </div>
+    
+    <script src="../js/script.js"></script>
+
+</body>
+</html>

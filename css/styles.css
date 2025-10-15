@@ -1,0 +1,418 @@
+/* paleta basada en la estética de folklore */
+:root {
+    --text-color: #68705C;          /* Verde Oliva Oscuro (Para texto y botones de acción) */
+    --secondary-accent: #A5A69B;    /* Gris Niebla (Para Navbar y Bordes) */
+    --background-vibrant: #68705C;  /* Tono oscuro del Oliva (Para énfasis fuerte/precios) */
+    --tertiary-dark: #68705C;       /* Verde Oliva Oscuro (Para hover y bordes) */
+    --card-bg-color: #EDE8D6;       /* Crema/Arena (Fondo de Cards/Formularios) */
+    --background-soft: #D9D9C3;     /* Rosa Durazno Suave (Fondo de Página) */
+    --primary-color: #262724;       /* Verde Oliva Oscuro (Color principal de enlaces/texto) */
+    --light-color: #ffffff;         /* Blanco */
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--background-soft);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px; /* Padding agregado de una de las reglas duplicadas */
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* etiqueta */
+h1, .nav-slogan, .header-title-container .form-title {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    margin: 40px 0 70px 0;
+    font-size: 2.8rem;
+    letter-spacing: 1.5px;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--secondary-accent);
+}
+
+/* navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--card-bg-color);
+    padding: 25px 180px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+nav .logo {
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* texto arriba de los botones */
+.nav-slogan {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+    padding: 0;
+}
+
+.nav-buttons-group {
+    display: flex;
+    align-items: center;
+}
+
+/* estilo botones */
+.nav-links a {
+    font-family: 'Lora', serif;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 4px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+}
+
+.nav-links a:hover {
+    background-color: var(--tertiary-dark);
+    color: var(--light-color);
+}
+
+/* registro */
+.nav-button {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: var(--tertiary-dark);
+    color: var(--light-color);
+}
+
+/* producto */
+.product-card .card-artist {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 5px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.product-card .card-title {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 1px;
+    text-align: center;
+    font-weight: 400;
+}
+
+/* precio */
+.product-card .card-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--background-vibrant);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* carrito */
+.cart-link {
+    font-weight: bold;
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cart-link:hover {
+    background-color: var(--tertiary-dark);
+}
+
+/* layout */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 35px;
+    margin-top: -80px;  /* Ajusta este valor para controlar cuánto se superpone */
+    position: relative; /* Necesario para que z-index funcione */
+    z-index: 10;
+}
+
+@media (max-width: 1200px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* card - producto */
+.product-card {
+    border: 1px solid var(--tertiary-dark);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    transition: transform 0.4s, box-shadow 0.4s;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.card-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 5px solid var(--primary-color);
+}
+
+.card-body {
+    padding: 15px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.card-artist {
+    font-size: 1rem;
+    color: var(--tertiary-dark);
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.card-title {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.card-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--background-vibrant);
+    margin-bottom: 15px;
+}
+
+.btn-add {
+    font-family: 'Lora', serif;
+    background-color: var(--text-color);
+    color: var(--light-color);
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 15px auto 0 auto;
+    width: fit-content;
+    max-width: 80%;
+}
+
+.btn-add:hover {
+    background-color: var(--primary-color);
+}
+
+/* login */
+.form-container {
+    max-width: 420px;
+    margin: 80px auto;
+    padding: 35px;
+    background: var(--card-bg-color);
+    border: 2px solid var(--primary-color); 
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.form-container h1 {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+}
+
+.form-container label {
+    font-weight: bold;
+    color: var(--text-color);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--tertiary-dark);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: var(--light-color);
+    color: var(--text-color);
+}
+
+.form-container button[type="submit"] {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    padding: 8px 30px;
+    width: 95%;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 7px auto 0 auto;
+}
+
+.form-container button[type="submit"]:hover {
+    background-color: var(--secondary-accent);
+}
+
+/* logo acomodado: centro */
+.header-logo-container {
+    text-align: center;
+    padding: 0;
+}
+
+/* tamaño */
+.main-logo {
+    height: 60px;
+    width: auto;
+    max-width: 90%;
+    display: block;
+    margin: 3px auto;
+}
+
+/* texto registro */
+.header-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-top: 5px;
+}
+
+/* título forzado pq sino queda feo */
+.header-title-container h1.form-title {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    margin: 5px 0 0 0;
+    text-align: center;
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+/* logo - registro */
+.title-logo {
+    height: 50px;
+    display: block;
+    line-height: 0;
+    margin-bottom: -5px;
+}
+
+/* fotoabajo */
+.hero-section {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.random-products-container {
+    padding-top: 20px; 
+}
+
+.section-title {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+/*barra novedades */
+.featured-bar {
+    background-color: var(--card-bg-color); 
+    padding: 40px 0;
+    margin-top: -100px; 
+    position: relative;
+    z-index: 5; 
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
+    border-top: 1px solid var(--tertiary-dark);
+}
+
+.featured-bar .section-title {
+    margin-bottom: 40px;
+    font-size: 2.8rem;
+    color: var(--primary-color);
+}
+
+.featured-bar .products-grid {
+    margin-top: 0;
+    z-index: 10; 
+}

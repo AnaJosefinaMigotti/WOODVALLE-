@@ -1,30 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const allProducts = [
-        { id: 1, artist: 'Taylor Swift', name: 'The Life of a Showgirl (So Glamorous)', price: 37030, image: './assets/tlosga.webp' },
-        { id: 2, artist: 'Taylor Swift', name: 'The Life of a Showgirl (Dressing Room)', price: 37030, image: './assets/tlosgr.webp' },
-        { id: 5, artist: 'La Mona Jimenez', name: 'UN LOCO BOHEMIO DE LA NOCHE', price: 29900, image: './assets/mn.webp' },
-        { id: 7, artist: 'AC/DC', name: 'Highway to Hell (Vinyl 50th - Orange)', price: 136999, image: './assets/acdc.webp' },
-        { id: 9, artist: 'Taylor Swift', name: 'Speak Now (Taylor\'s Version) (Three-LP set)', price: 185398, image: './assets/sntl.webp' },
-        { id: 14, artist: 'Paramore', name: 'Brand New Eyes (Dylan\'s Version)', price: 79900, image: './assets/pr.webp' },
-        { id: 18, artist: 'Lana del Rey', name: 'Ultraviolence (Double Vinyl)', price: 137799, image: './assets/uv.webp' },
-        { id: 22, artist: 'Pescado Rabioso', name: 'Artaud (Standar Vinyl)', price: 41372, image: './assets/ar.webp' },
-        { id: 24, artist: 'Las Pastillas del Abuelo', name: 'Crisis (CD Estandar)', price: 23299, image: './assets/lpda.webp' }
-        
-    ];
+   /* productos del carrusel */
+   const allProducts = [
+    { id: 1, artist: 'Taylor Swift', name: 'The Life of a Showgirl (So Glamorous Cabaret Version)   ', price: 37030, image: './assets/tlosga.webp' },
+    { id: 2, artist: 'Taylor Swift', name: 'The Life of a Showgirl (Dressing Room Rehearsal Version)   ', price: 37030, image: './assets/tlosgr.webp' },
+    { id: 3, artist: 'Taylor Swift', name: 'The Life of a Showgirl (Alone in my Tower Acoustic Version)   ', price: 37030, image: './assets/tlosgro.webp' },
+    { id: 4, artist: 'Taylor Swift', name: 'The Life of a Showgirl (Life is a Song Acoustic Version)   ', price: 37030, image: './assets/tlosgv.webp' },
+    { id: 5, artist: 'La Mona Jimenez', name: "UN LOCO BOHEMIO DE LA NOCHE (CD 1) (Torito's Version)", price: 29900, image: './assets/mn.webp' },
+    { id: 6, artist: 'ERA', name: "ERA (Vinyl Couleur)", price: 56117, image: './assets/era.webp' },
+    { id: 7, artist: 'AC/DC', name: "Highway to Hell (Vinyl 50th - Orange)", price: 136999, image: './assets/acdc.webp' },
+    { id: 8, artist: 'La Mona Jiménez', name: "Gracias a Dios (CD)", price: 19771, image: './assets/gd.jpg' },
+    { id: 9, artist: 'Taylor Swift', name: "Speak Now (Taylor's Version) (Three-LP set)", price: 185398, image: './assets/sntl.webp' },
+    { id: 10, artist: 'Taylor Swift', name: "Speak Now (Taylor's Version) (CD Standar)", price: 22079, image: './assets/spcd.webp' },
+    { id: 11, artist: 'Taylor Swift', name: "Midnights: Jade Green Edition Vinyl ", price: 109500, image: './assets/mj.webp' },
+    { id: 12, artist: 'Taylor Swift', name: "Midnights: Lavender Edition Vinyl ", price: 109500, image: './assets/ml.webp' },
+    { id: 13, artist: 'Avril Lavigne', name: "Under My Skin (Vinyl Standard)", price: 57900, image: './assets/AL6.webp' },
+    { id: 14, artist: 'Paramore', name: "Brand New Eyes (Vinyl Standard)", price: 79900, image: './assets/pr.webp' },
+    { id: 15, artist: 'Sabrina Carpenter', name: "Short n' Sweet  (Standard LP)", price: 84991, image: './assets/sns.webp' },
+    { id: 16, artist: 'Travis Scott', name: "Rodeo (Expanded Edition)  (CD)", price: 44991, image: './assets/tsr.webp' },
+    { id: 17, artist: 'Mumford and Sons', name: "Sigh No More: Limited Clear Vinyl LP", price: 89991, image: './assets/mas.webp' },
+    { id: 18, artist: 'Lana del Rey', name: "Ultraviolence (Double Vinyl) (Standard)", price: 137799, image: './assets/uv.webp' },
+    { id: 19, artist: 'EMINEM', name: "The Eminem Show (Standar Vinyl)", price: 61601, image: './assets/en.webp' },
+    { id: 20, artist: 'Morat', name: "Si ayer fuera hoy (Standar Vinyl)", price: 46989, image: './assets/morat.webp' },
+    { id: 21, artist: 'Patricio Rey y sus Redonditos de Ricota', name: "Oktubre (Standar Vinyl)", price: 65500, image: './assets/r.webp' },
+    { id: 22, artist: 'Pescado Rabioso', name: "Artaud (Standar Vinyl)", price: 41372, image: './assets/ar.webp' },
+    { id: 23, artist: 'Kendrick Lamar', name: "GNX (Exclusive White Vinyl)", price: 49500, image: './assets/k.webp' },
+    { id: 24, artist: 'Las Pastillas del Abuelo', name: "Crisis (CD Estandar)", price: 23299, image: './assets/lpda.webp' }
+];
 
-    function displayRandomProducts() {
-        const container = document.getElementById('random-products-grid');
-        if (!container) return; 
+    const scrollerInner = document.querySelector('.scroller__inner');
 
-        const shuffled = allProducts.sort(() => 0.5 - Math.random());
-        
-        const selectedProducts = shuffled.slice(0, 4);
-
-        let productsHTML = ''; 
-
-        selectedProducts.forEach(product => {
-            productsHTML += `
+    if (scrollerInner) {
+        /*carga */
+        allProducts.forEach(product => {
+            const productCard = document.createElement('li'); 
+            productCard.innerHTML = `
                 <div class="product-card">
                     <img src="${product.image}" alt="${product.name}" class="card-image">
                     <div class="card-body">
@@ -41,10 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `;
+            scrollerInner.appendChild(productCard);
         });
 
-        container.innerHTML = productsHTML;
+        /* duplicado */
+        const scrollerContent = Array.from(scrollerInner.children);
+        scrollerContent.forEach(item => {
+            const duplicatedItem = item.cloneNode(true);
+           /* para q no lo vea el usuario */
+            duplicatedItem.setAttribute('aria-hidden', true);
+            scrollerInner.appendChild(duplicatedItem);
+        });
     }
-
-    displayRandomProducts();
 });

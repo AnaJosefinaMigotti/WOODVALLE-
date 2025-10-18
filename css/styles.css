@@ -15,7 +15,7 @@ body {
     background-color: var(--background-soft);
     color: var(--text-color);
     margin: 0;
-    padding: 20px; /* Padding agregado de una de las reglas duplicadas */
+    padding: 20px; 
     line-height: 1.6;
     min-height: 100vh;
 }
@@ -55,6 +55,8 @@ nav {
     background-color: var(--card-bg-color);
     padding: 25px 180px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 100;
 }
 
 nav .logo {
@@ -166,8 +168,8 @@ nav .logo {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 35px;
-    margin-top: -80px;  /* Ajusta este valor para controlar cuánto se superpone */
-    position: relative; /* Necesario para que z-index funcione */
+    margin-top: -80px; 
+    position: relative; 
     z-index: 10;
 }
 
@@ -200,6 +202,7 @@ nav .logo {
     transition: transform 0.4s, box-shadow 0.4s;
     display: flex;
     flex-direction: column;
+    height: 100%; 
 }
 
 .product-card:hover {
@@ -249,15 +252,17 @@ nav .logo {
     font-family: 'Lora', serif;
     background-color: var(--text-color);
     color: var(--light-color);
-    padding: 12px 25px;
+    padding: 12px 0; 
     border-radius: 8px;
     font-weight: bold;
     font-size: 1.1rem;
     transition: background-color 0.3s;
     display: block;
     margin: 15px auto 0 auto;
-    width: fit-content;
-    max-width: 80%;
+    width: 85%; 
+    max-width: 200px;              
+    text-align: center; /* texto dentro del coso */         
+    box-sizing: border-box; 
 }
 
 .btn-add:hover {
@@ -399,11 +404,15 @@ nav .logo {
 .featured-bar {
     background-color: var(--card-bg-color); 
     padding: 40px 0;
-    margin-top: -100px; 
-    position: relative;
-    z-index: 5; 
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
     border-top: 1px solid var(--tertiary-dark);
+
+    /* LÓGICA DE SUPERPOSICIÓN: La movemos hacia arriba */
+    margin-top: -100px; /* Ajusta este valor (ej: -100px) para controlar la superposición */
+
+    /* LÓGICA DE CAPAS: La ponemos en una capa intermedia */
+    position: relative;
+    z-index: 5;
 }
 
 .featured-bar .section-title {
@@ -415,4 +424,52 @@ nav .logo {
 .featured-bar .products-grid {
     margin-top: 0;
     z-index: 10; 
+}
+
+/* carrusel novedades */
+
+.scroller {
+  max-width: 1200px; /* ancho */
+  margin: auto;
+  overflow: hidden; 
+  
+  /* difuminado */
+  -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+  mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+}
+
+.scroller__inner {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  /* espacio entre cada álbum */
+  gap: 20px; 
+  /* animación */
+  animation: scroll 25s linear infinite;
+}
+
+/* pausar la animación x el mouse */
+.scroller:hover .scroller__inner {
+  animation-play-state: paused;
+}
+
+/* definición de animación */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - 20px)); 
+  }
+}
+
+.scroller .product-card {
+    /* ancho definido */
+  flex: 0 0 280px; 
+  width: 280px;
+}
+
+main {
+  padding-top: 100px; /* O la altura exacta de tu navbar */
 }

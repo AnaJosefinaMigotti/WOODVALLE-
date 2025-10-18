@@ -371,7 +371,7 @@ nav .logo {
     margin-bottom: -5px;
 }
 
-/* fotoabajo */
+/* fotofondo */
 .hero-section {
     width: 100%;
     height: 300px;
@@ -397,7 +397,7 @@ nav .logo {
     color: var(--primary-color);
     text-align: center;
     font-size: 2.5rem;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 /*barra novedades */
@@ -406,15 +406,12 @@ nav .logo {
     padding: 40px 0;
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
     border-top: 1px solid var(--tertiary-dark);
-
-    /* LÓGICA DE SUPERPOSICIÓN: La movemos hacia arriba */
-    margin-top: -100px; /* Ajusta este valor (ej: -100px) para controlar la superposición */
-
-    /* LÓGICA DE CAPAS: La ponemos en una capa intermedia */
+    margin-top: -100px;
     position: relative;
     z-index: 5;
 }
 
+/*tit-novedades*/
 .featured-bar .section-title {
     margin-bottom: 40px;
     font-size: 2.8rem;
@@ -427,12 +424,10 @@ nav .logo {
 }
 
 /* carrusel novedades */
-
 .scroller {
   max-width: 1200px; /* ancho */
   margin: auto;
-  overflow: hidden; 
-  
+  overflow: clip; 
   /* difuminado */
   -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
   mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
@@ -444,7 +439,7 @@ nav .logo {
   display: flex;
   flex-wrap: nowrap;
   /* espacio entre cada álbum */
-  gap: 20px; 
+  gap: 30px; 
   /* animación */
   animation: scroll 25s linear infinite;
 }
@@ -464,12 +459,34 @@ nav .logo {
   }
 }
 
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.card {
+  max-height: 350px;
+  overflow: hidden;
+}
+.carousel-item img {
+  max-height: 400px;
+  object-fit: cover;
+}
+
+/* ancho definido */
 .scroller .product-card {
-    /* ancho definido */
   flex: 0 0 280px; 
   width: 280px;
 }
 
-main {
-  padding-top: 100px; /* O la altura exacta de tu navbar */
+/* tkm */
+.footer {
+    background-color: #333;
+    color: #fff; 
+    padding: 20px 0;
+    text-align: center; 
+    width: 100%;    
+    position: static; 
 }

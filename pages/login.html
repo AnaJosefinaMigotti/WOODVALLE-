@@ -6,9 +6,20 @@
     <title>Login | Woodvalle Vinyl </title>
     <link rel="stylesheet" href="../css/styles.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .error-msg {
+            color: red;
+            background-color: #ffe0e0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-        <main class="container">
+    <main class="container">
         
         <div class="form-container">
             
@@ -24,19 +35,21 @@
                 <label for="password">Contraseña:</label>
                 <input type="password" id="password" name="password" required><br><br>
 
+                <div id="error-message" class="error-msg"></div>
+
                 <button type="submit">Entrar</button>
             </form>
 
             <br>
             <a href="../index.html">Volver al inicio</a>
             <p style="margin-top: 15px;">¿No tienes cuenta? <a href="../pages/registro.html">Regístrate aquí</a>.</p>
-
-
         </div>
 
-             <div class="footer">  <p>&copy; 2025 Woodvalle. Te quiero mucho, Taylor Swift.</p>
-        
+        <div class="footer">
+            <p>&copy; 2025 Woodvalle. Te quiero mucho, Taylor Swift.</p>
+        </div>
     </main>
     
-    </body>
+    <script src="../js/login.js"></script>
+</body>
 </html>

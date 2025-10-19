@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartSummary = document.querySelector('.cart-summary');
     
     document.body.addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-add')) {
+        if (e.target.classList.contains('btn-comprar')) {
             const button = e.target;
             const id = button.dataset.id;
             const name = button.dataset.name;

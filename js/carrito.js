@@ -1,125 +1,94 @@
 document.addEventListener('DOMContentLoaded', () => {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    const cartCount = document.getElementById('cart-count');
-    const cartTableBody = document.querySelector('.cart-table tbody');
-    const cartSummary = document.querySelector('.cart-summary');
-    
-    document.body.addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn-comprar')) {
-            const button = e.target;
-            const id = button.dataset.id;
-            const name = button.dataset.name;
-            const price = parseInt(button.dataset.price, 10);
-            const image = button.dataset.image;
+    const tbody = document.querySelector('.cart-table tbody');
+    const subtotalSpan = document.getElementById('subtotal');
+    const shippingSpan = document.getElementById('shipping');
+    const totalSpan = document.getElementById('total');
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-            const existingItem = cart.find(item => item.id === id);
-
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                cart.push({ id, name, price, image, quantity: 1 });
-            }
-
-            saveCart();
-            updateCartCount();
-            alert(`"${name}" fue añadido al carrito!`);
-        }
-    });
-
-    function updateCartCount() {
-        if (cartCount) {
-            cartCount.textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
-        }
-    }
-    function saveCart() {
-        localStorage.setItem('cart', JSON.stringify(cart));
-    }
-    
-    function renderCart() {
-        if (!cartTableBody || !cartSummary) return;
-
-        cartTableBody.innerHTML = '';
-
-        if (cart.length === 0) {
-            cartTableBody.innerHTML = '<tr><td colspan="5" style="text-align:center;">Tu carrito está vacío.</td></tr>';
-            cartSummary.style.display = 'none';
+    function renderizarCarrito() {
+        
+        tbody.innerHTML = '';        
+        // x si el carrito está vacío
+        if (carrito.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Tu carrito está vacío.</td></tr>';
+            actualizarTotales(0);
             return;
         }
 
-        cartSummary.style.display = 'block';
+        let granTotal = 0;
 
-        let subtotal = 0;
+        carrito.forEach(producto => {
+            const subtotalProducto = producto.precio * producto.cantidad;
+            granTotal += subtotalProducto;
 
-       cart.forEach(item => {
-            const imagePath = item.image.startsWith('./') ? item.image.replace('./', '../') : item.image;
-
-            const row = document.createElement('tr');
-            const itemTotal = item.price * item.quantity;
-            subtotal += itemTotal;
-
-            row.innerHTML = `
-                <td>
-                    <div class="cart-product">
-                        <img src="${imagePath}" alt="${item.name}">
-                        <div class="cart-product-info">
-                            <h4>${item.name}</h4>
-                        </div>
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="cart-product">
+                    <img src="${producto.imagen}" alt="${producto.titulo}">
+                    <div class="cart-product-info">
+                        <h4>${producto.titulo}</h4>
                     </div>
                 </td>
-                <td>$${item.price.toLocaleString('es-AR')}</td>
+                <td>$${producto.precio.toLocaleString('es-AR')}</td>
                 <td class="cart-quantity">
-                    <input type="number" value="${item.quantity}" min="1" data-id="${item.id}" class="quantity-input">
+                    <input type="number" value="${producto.cantidad}" min="1" data-id="${producto.id}" class="cantidad-input">
                 </td>
-                <td>$${itemTotal.toLocaleString('es-AR')}</td>
+                <td>$${subtotalProducto.toLocaleString('es-AR')}</td>
                 <td>
-                    <button class="remove-btn" data-id="${item.id}" style="cursor:pointer; border:none; background:transparent; font-size: 1.2rem; color: var(--text-color);">
-                        🗑️
-                    </button>
+                    <button class="carrito-boton-eliminar" data-id="${producto.id}">X</button>
                 </td>
             `;
-            cartTableBody.appendChild(row);
+            
+            tbody.appendChild(tr);
         });
 
-        const shipping = 5000;
-        const total = subtotal + shipping;
-
-        document.getElementById('subtotal').textContent = `$${subtotal.toLocaleString('es-AR')}`;
-        document.getElementById('shipping').textContent = `$${shipping.toLocaleString('es-AR')}`;
-        document.getElementById('total').textContent = `$${total.toLocaleString('es-AR')}`;
+        actualizarTotales(granTotal);
+        
+        agregarEventosEliminar();
+        agregarEventosCantidad();
     }
-    
-    if(cartTableBody){
-        cartTableBody.addEventListener('change', (e) => {
-            if (e.target.classList.contains('quantity-input')) {
-                const id = e.target.dataset.id;
-                const newQuantity = parseInt(e.target.value, 10);
+
+    function actualizarTotales(subtotal) {
+        const costoEnvio = 0;
+        subtotalSpan.textContent = `$${subtotal.toLocaleString('es-AR')}`;
+        shippingSpan.textContent = `$${costoEnvio.toLocaleString('es-AR')}`;
+        totalSpan.textContent = `$${(subtotal + costoEnvio).toLocaleString('es-AR')}`;
+    }
+
+    // btn eliminar
+    function agregarEventosEliminar() {
+        const botonesEliminar = document.querySelectorAll('.carrito-boton-eliminar');
+        botonesEliminar.forEach(boton => {
+            boton.addEventListener('click', (e) => {
+                const idEliminar = e.target.getAttribute('data-id');
+                const nuevoCarrito = carrito.filter(p => p.id !== idEliminar);
+                localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
+                window.location.reload(); 
+            });
+        });
+    }
+
+    // cantidad
+    function agregarEventosCantidad() {
+        const inputsCantidad = document.querySelectorAll('.cantidad-input');
+        inputsCantidad.forEach(input => {
+            input.addEventListener('change', (e) => {
+                const idActualizar = e.target.getAttribute('data-id');
+                const nuevaCantidad = parseInt(e.target.value);
                 
-                const itemToUpdate = cart.find(item => item.id === id);
-                if(itemToUpdate){
-                    itemToUpdate.quantity = newQuantity > 0 ? newQuantity : 1;
-                    e.target.value = itemToUpdate.quantity;
+                const producto = carrito.find(p => p.id === idActualizar);
+                if (producto && nuevaCantidad > 0) {
+                    producto.cantidad = nuevaCantidad;
+                } else if (producto && nuevaCantidad <= 0) {
+                     e.target.value = 1;
+                     producto.cantidad = 1;
                 }
-
-                saveCart();
-                renderCart();
-                updateCartCount();
-            }
-        });
-
-        cartTableBody.addEventListener('click', (e) => {
-            if (e.target.classList.contains('remove-btn')) {
-                const id = e.target.dataset.id;
-                cart = cart.filter(item => item.id !== id);
-                saveCart();
-                renderCart();
-                updateCartCount();
-            }
+                
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                renderizarCarrito();
+            });
         });
     }
-
-    updateCartCount();
-    if (window.location.pathname.includes('carrito.html')) {
-        renderCart();
-    }
+    renderizarCarrito();
 });

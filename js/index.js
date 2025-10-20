@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         /*carga */
         allProducts.forEach(product => {
             const productCard = document.createElement('li'); 
+            allProducts.sort(() => Math.random() - 0.5);
             productCard.innerHTML = `
                 <div class="product-card">
                     <img src="${product.image}" alt="${product.name}" class="card-image">

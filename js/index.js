@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* productos del carrusel */
+    
     const allProducts = [
      { id: 1, artist: 'Taylor Swift', name: 'The Life of a Showgirl (So Glamorous Cabaret Version)', price: 37030, image: './assets/tlosga.webp' },
      { id: 2, artist: 'Taylor Swift', name: 'The Life of a Showgirl (Dressing Room Rehearsal Version)', price: 37030, image: './assets/tlosgr.webp' },

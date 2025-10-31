@@ -455,7 +455,6 @@ nav .logo {
     color: #444;
 }
 
-/* --- Estilos para el selector de cantidad --- */
 .detalle-controles {
     display: flex;
     flex-wrap: wrap;
@@ -514,6 +513,14 @@ nav .logo {
 }
 .detalle-controles .btn-add:hover {
     background-color: #4a754a;
+}
+
+/* botón seleccionado - navbar */
+.nav-button.active {
+  background-color: #444; 
+  color: white;
+  font-weight: bold;
+  border-bottom: 3px solid #b58b4b; 
 }
 
 /* media */

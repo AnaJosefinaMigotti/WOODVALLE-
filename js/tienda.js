@@ -28,7 +28,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         productosContainer.innerHTML = ''; 
 
         productos.forEach(producto => {
-            const precioFormateado = (producto.precio / 100).toFixed(2); 
+        // para q no se vea raro
+        const precioFormateado = producto.precio.toLocaleString('es-AR', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        });
 
             // recrea mi card
             productosContainer.innerHTML += `

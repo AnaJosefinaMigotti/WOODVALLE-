@@ -1,27 +1,19 @@
-// Archivo: js/index.js - SOLO LÓGICA DEL CARRUSEL
-
-// Importamos la función de fetch. Ya no necesitamos filtrarParaHome.
+// importar fetch
 import { fetchProductos } from './dataService.js'; 
 
 document.addEventListener('DOMContentLoaded', async () => {
     
-    // --- Contenedores del DOM ---
     const scrollerInner = document.querySelector('.scroller__inner');
 
     if (!scrollerInner) {
-        // Si el contenedor del carrusel no existe, salimos silenciosamente
         console.log("Contenedor del carrusel (.scroller__inner) no encontrado. Saliendo de index.js.");
         return; 
     }
 
     try {
-        // 1. FETCH: Obtener todos los productos del JSON
+        // obtener productos .json
         const allProducts = await fetchProductos(); 
-        
-        // 2. RENDERIZAR el Carrusel (con TODOS los productos)
         renderizarCarrusel(allProducts, scrollerInner); 
-        
-        // 3. ADJUNTAR LISTENERS (Duplicación, Botones)
         iniciarLogicaCarrusel(scrollerInner);
 
     } catch (error) {
@@ -29,43 +21,42 @@ document.addEventListener('DOMContentLoaded', async () => {
         scrollerInner.innerHTML = '<li>Error al cargar las novedades.</li>';
     }
 
-    // =================================================================
-    // === FUNCIONES DE RENDERIZADO Y LÓGICA ===
-    // =================================================================
-
-    // Función para renderizar los ítems del Carrusel
-    function renderizarCarrusel(products, container) {
-        container.innerHTML = '';
-        
-        products.forEach(product => {
-            const productCard = document.createElement('li'); 
-            const precioFormateado = (product.precio / 100).toFixed(2);
+        // renderizar items del carrusel
+        function renderizarCarrusel(products, container) {
+            container.innerHTML = '';
             
-            productCard.innerHTML = `
-                <div class="product-card">
-                    <img src="${product.imagen}" alt="${product.titulo}" class="card-image">
-                    <div class="card-body">
-                        <p class="card-artist">${product.artista}</p>
-                        <h3 class="card-title">${product.titulo}</h3>
-                        <p class="card-price">$${precioFormateado}</p>
-                        <button class="btn-add btn-comprar" 
-                                data-id="${product.id}" 
-                                data-name="${product.titulo.trim()}" 
-                                data-price="${product.precio}" 
-                                data-image="${product.imagen}">
-                            Añadir al Carrito
-                        </button>
+            products.forEach(product => {
+            const productCard = document.createElement('li'); 
+            // para q no me muestre el precio raro
+            const precioFormateado = product.precio.toLocaleString('es-AR', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+                
+                productCard.innerHTML = `
+                    <div class="product-card">
+                        <img src="${product.imagen}" alt="${product.titulo}" class="card-image">
+                        <div class="card-body">
+                            <p class="card-artist">${product.artista}</p>
+                            <h3 class="card-title">${product.titulo}</h3>
+                            <p class="card-price">$${precioFormateado}</p>
+                            <button class="btn-add btn-comprar" 
+                                    data-id="${product.id}" 
+                                    data-name="${product.titulo.trim()}" 
+                                    data-price="${product.precio}" 
+                                    data-image="${product.imagen}">
+                                Añadir al Carrito
+                            </button>
+                        </div>
                     </div>
-                </div>
-            `;
-            container.appendChild(productCard);
-        });
-    }
+                `;
+                container.appendChild(productCard);
+            });
+        }
 
-    // Tu función que maneja el duplicado del carrusel y los listeners
+    // función de duplicado
     function iniciarLogicaCarrusel(scrollerInner) {
         
-        /* duplicado */
         const scrollerContent = Array.from(scrollerInner.children);
         scrollerContent.forEach(item => {
             const duplicatedItem = item.cloneNode(true);
@@ -73,14 +64,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             scrollerInner.appendChild(duplicatedItem);
         });
 
-        // Seleccionamos los botones que acabamos de crear
         const botonesComprar = document.querySelectorAll('.scroller__inner .btn-comprar');
         
         const anadirAlCarrito = (event) => {
             const botonClickeado = event.target;
             const rutaImagenOriginal = botonClickeado.dataset.image;
             
-            // Tu lógica de corrección de ruta
+            // corrección de ruta
             const rutaImagenCorregida = rutaImagenOriginal.replace('./', '../'); 
             
             const item = {

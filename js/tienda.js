@@ -1,24 +1,21 @@
-/// Archivo: js/tienda.js
 
-// **IMPORTANTE:** Debes tener este archivo y la función listos:
 import { fetchProductos } from './dataservice.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     
     const productosContainer = document.getElementById('tienda-productos-container'); 
-    if (!productosContainer) return; // Se asegura de que estamos en tienda.html
+    if (!productosContainer) return; 
 
-    let todosLosProductos = []; // Guardaremos aquí el array completo
+    let todosLosProductos = []; 
 
     try {
-        // 1. FETCH: Obtener todos los productos del JSON
+        // obtener productos
         todosLosProductos = await fetchProductos(); 
         
-        // 2. RENDERIZAR: Insertar el HTML de las tarjetas
+        // html en card
         renderizarCardsTienda(todosLosProductos); 
 
-        // 3. LISTENERS: Adjuntar tu lógica de botones (la función que reemplazaremos)
-        // Pasamos el array fetchado para que pueda usarse en el carrito si es necesario
+        // lódiga de botones
         iniciarLogicaBotones(todosLosProductos); 
 
     } catch (error) {
@@ -26,15 +23,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         productosContainer.innerHTML = '<p class="error-msg">Error: No se pudieron cargar los productos de la tienda. Asegúrate de que data/producto.json existe.</p>';
     }
 
-    // --- FUNCIÓN DE RENDERIZADO ---
-    // Esta función recrea la estructura que tenías en tienda.html
+    // recrea la estructura q tenía antes
     function renderizarCardsTienda(productos) {
         productosContainer.innerHTML = ''; 
 
         productos.forEach(producto => {
             const precioFormateado = (producto.precio / 100).toFixed(2); 
 
-            // Recreamos tu card, usando los datos del objeto (sin la descripción larga)
+            // recrea mi card
             productosContainer.innerHTML += `
                 <div class="product-card" data-id="${producto.id}" data-categoria="${producto.categoria}">
                     <img src="${producto.imagen}" alt="${producto.titulo}" class="card-image">
@@ -57,23 +53,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // --- TU LÓGICA DE BOTONES ENCAPSULADA ---
-    // Esta es tu lógica original de tienda.js, pero se ejecuta aquí, DESPUÉS de renderizar.
+    // lógica de botones
     function iniciarLogicaBotones(productosDisponibles) {
-        
-        // La búsqueda de botones ahora funciona porque ya existen en el DOM
         const botonesComprar = document.querySelectorAll('.btn-comprar');
-        
         botonesComprar.forEach(boton => {
             boton.addEventListener('click', (event) => {
-                
                 const botonClickeado = event.target;
 
-                // Tu lógica de carrito original (usa data-attributes del botón)
+                // lógica del carrito
                 const item = {
                     id: botonClickeado.dataset.id,
                     titulo: botonClickeado.dataset.name,
-                    // float = precio en numeros. Lo parsea de string a número
+                    // string a num
                     precio: parseFloat(botonClickeado.dataset.price),
                     imagen: botonClickeado.dataset.image,
                     cantidad: 1

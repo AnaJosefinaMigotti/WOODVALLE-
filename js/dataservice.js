@@ -1,9 +1,8 @@
-// Archivo: js/dataService.js
 
 const URL_JSON = '../data/producto.json'; 
 const LIMITE_HOME = 3;
 
-// Exportamos la función para obtener todos los datos (fetch)
+// exportar función para obtener datos
 export async function fetchProductos() {
     try {
         const response = await fetch(URL_JSON);
@@ -13,11 +12,10 @@ export async function fetchProductos() {
         return await response.json(); 
     } catch (error) {
         console.error("Fallo al obtener los productos:", error);
-        throw error; // Propagar el error para que el archivo llamador lo maneje
+        throw error; 
     }
 }
 
-// Exportamos la función de filtrado para usar en la Home
 export function filtrarParaHome(productos) {
     const productosPorCategoria = productos.reduce((acc, producto) => {
         const categoria = producto.categoria || 'Varios';

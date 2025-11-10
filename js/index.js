@@ -1,60 +1,70 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Archivo: js/index.js - SOLO LÓGICA DEL CARRUSEL
 
-    /* productos del carrusel */
+// Importamos la función de fetch. Ya no necesitamos filtrarParaHome.
+import { fetchProductos } from './dataService.js'; 
+
+document.addEventListener('DOMContentLoaded', async () => {
     
-    const allProducts = [
-     { id: 1, artist: 'Taylor Swift', name: 'The Life of a Showgirl (So Glamorous Cabaret Version)', price: 37030, image: './assets/tlosga.webp' },
-     { id: 2, artist: 'Taylor Swift', name: 'The Life of a Showgirl (Dressing Room Rehearsal Version)', price: 37030, image: './assets/tlosgr.webp' },
-     { id: 3, artist: 'Taylor Swift', name: 'The Life of a Showgirl (Alone in my Tower Acoustic Version)', price: 37030, image: './assets/tlosgro.webp' },
-     { id: 4, artist: 'Taylor Swift', name: 'The Life of a Showgirl (Life is a Song Acoustic Version)', price: 37030, image: './assets/tlosgv.webp' },
-     { id: 5, artist: 'La Mona Jimenez', name: "UN LOCO BOHEMIO DE LA NOCHE (CD 1) (Torito's Version)", price: 29900, image: './assets/mn.webp' },
-     { id: 6, artist: 'ERA', name: "ERA (Vinyl Couleur)", price: 56117, image: './assets/era.webp' },
-     { id: 7, artist: 'AC/DC', name: "Highway to Hell (Vinyl 50th - Orange)", price: 136999, image: './assets/acdc.webp' },
-     { id: 8, artist: 'La Mona Jiménez', name: "Gracias a Dios (CD)", price: 19771, image: './assets/gd.jpg' },
-     { id: 9, artist: 'Taylor Swift', name: "Speak Now (Taylor's Version) (Three-LP set)", price: 185398, image: './assets/sntl.webp' },
-     { id: 10, artist: 'Taylor Swift', name: "Speak Now (Taylor's Version) (CD Standar)", price: 22079, image: './assets/spcd.webp' },
-     { id: 11, artist: 'Taylor Swift', name: "Midnights: Jade Green Edition Vinyl ", price: 109500, image: './assets/mj.webp' },
-     { id: 12, artist: 'Taylor Swift', name: "Midnights: Lavender Edition Vinyl ", price: 109500, image: './assets/ml.webp' },
-     { id: 13, artist: 'Avril Lavigne', name: "Under My Skin (Vinyl Standard)", price: 57900, image: './assets/AL6.webp' },
-     { id: 14, artist: 'Paramore', name: "Brand New Eyes (Vinyl Standard)", price: 79900, image: './assets/pr.webp' },
-     { id: 15, artist: 'Sabrina Carpenter', name: "Short n' Sweet (Standard LP)", price: 84991, image: './assets/sns.webp' },
-     { id: 16, artist: 'Travis Scott', name: "Rodeo (Expanded Edition) (CD)", price: 44991, image: './assets/tsr.webp' },
-     { id: 17, artist: 'Mumford and Sons', name: "Sigh No More: Limited Clear Vinyl LP", price: 89991, image: './assets/mas.webp' },
-     { id: 18, artist: 'Lana del Rey', name: "Ultraviolence (Double Vinyl) (Standard)", price: 137799, image: './assets/uv.webp' },
-     { id: 19, artist: 'EMINEM', name: "The Eminem Show (Standar Vinyl)", price: 61601, image: './assets/en.webp' },
-     { id: 20, artist: 'Morat', name: "Si ayer fuera hoy (Standar Vinyl)", price: 46989, image: './assets/morat.webp' },
-     { id: 21, artist: 'Patricio Rey y sus Redonditos de Ricota', name: "Oktubre (Standar Vinyl)", price: 65500, image: './assets/r.webp' },
-     { id: 22, artist: 'Pescado Rabioso', name: "Artaud (Standar Vinyl)", price: 41372, image: './assets/ar.webp' },
-     { id: 23, artist: 'Kendrick Lamar', name: "GNX (Exclusive White Vinyl)", price: 49500, image: './assets/k.webp' },
-     { id: 24, artist: 'Las Pastillas del Abuelo', name: "Crisis (CD Estandar)", price: 23299, image: './assets/lpda.webp' }
-    ];
-
+    // --- Contenedores del DOM ---
     const scrollerInner = document.querySelector('.scroller__inner');
 
-    if (scrollerInner) {
-        /*carga */
-        allProducts.forEach(product => {
+    if (!scrollerInner) {
+        // Si el contenedor del carrusel no existe, salimos silenciosamente
+        console.log("Contenedor del carrusel (.scroller__inner) no encontrado. Saliendo de index.js.");
+        return; 
+    }
+
+    try {
+        // 1. FETCH: Obtener todos los productos del JSON
+        const allProducts = await fetchProductos(); 
+        
+        // 2. RENDERIZAR el Carrusel (con TODOS los productos)
+        renderizarCarrusel(allProducts, scrollerInner); 
+        
+        // 3. ADJUNTAR LISTENERS (Duplicación, Botones)
+        iniciarLogicaCarrusel(scrollerInner);
+
+    } catch (error) {
+        console.error("Fallo al cargar el carrusel:", error);
+        scrollerInner.innerHTML = '<li>Error al cargar las novedades.</li>';
+    }
+
+    // =================================================================
+    // === FUNCIONES DE RENDERIZADO Y LÓGICA ===
+    // =================================================================
+
+    // Función para renderizar los ítems del Carrusel
+    function renderizarCarrusel(products, container) {
+        container.innerHTML = '';
+        
+        products.forEach(product => {
             const productCard = document.createElement('li'); 
-            allProducts.sort(() => Math.random() - 0.5);
+            const precioFormateado = (product.precio / 100).toFixed(2);
+            
             productCard.innerHTML = `
                 <div class="product-card">
-                    <img src="${product.image}" alt="${product.name}" class="card-image">
+                    <img src="${product.imagen}" alt="${product.titulo}" class="card-image">
                     <div class="card-body">
-                        <p class="card-artist">${product.artist}</p>
-                        <h3 class="card-title">${product.name}</h3>
-                        <p class="card-price">$${product.price.toLocaleString('es-AR')}</p>
+                        <p class="card-artist">${product.artista}</p>
+                        <h3 class="card-title">${product.titulo}</h3>
+                        <p class="card-price">$${precioFormateado}</p>
                         <button class="btn-add btn-comprar" 
                                 data-id="${product.id}" 
-                                data-name="${product.name.trim()}" data-price="${product.price}" 
-                                data-image="${product.image}">
+                                data-name="${product.titulo.trim()}" 
+                                data-price="${product.precio}" 
+                                data-image="${product.imagen}">
                             Añadir al Carrito
                         </button>
                     </div>
                 </div>
             `;
-            scrollerInner.appendChild(productCard);
+            container.appendChild(productCard);
         });
+    }
 
+    // Tu función que maneja el duplicado del carrusel y los listeners
+    function iniciarLogicaCarrusel(scrollerInner) {
+        
         /* duplicado */
         const scrollerContent = Array.from(scrollerInner.children);
         scrollerContent.forEach(item => {
@@ -63,16 +73,21 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollerInner.appendChild(duplicatedItem);
         });
 
-        const botonesComprar = document.querySelectorAll('.btn-comprar');
+        // Seleccionamos los botones que acabamos de crear
+        const botonesComprar = document.querySelectorAll('.scroller__inner .btn-comprar');
+        
         const anadirAlCarrito = (event) => {
             const botonClickeado = event.target;
             const rutaImagenOriginal = botonClickeado.dataset.image;
-            const rutaImagenCorregida = rutaImagenOriginal.replace('./', '../');
+            
+            // Tu lógica de corrección de ruta
+            const rutaImagenCorregida = rutaImagenOriginal.replace('./', '../'); 
+            
             const item = {
                 id: botonClickeado.dataset.id,
                 titulo: botonClickeado.dataset.name,
                 precio: parseFloat(botonClickeado.dataset.price),
-                imagen: rutaImagenCorregida,
+                imagen: rutaImagenCorregida, 
                 cantidad: 1 
             };
 
@@ -92,6 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
         botonesComprar.forEach(boton => {
             boton.addEventListener('click', anadirAlCarrito);
         });
-        
     }
+
 });

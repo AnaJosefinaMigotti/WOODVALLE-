@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda | Woodvalle Vinyl</title>
+    <title>Detalle del Producto | Woodvalle Vinyl</title> 
     <link rel="stylesheet" href="../css/styles.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-   <nav>
+    <nav>
         <div class="header-logo-container">
-            <img src="../assets/LOGO.webp" alt="Woodvalle Logo class="main-logo">
+            <img src="../assets/LOGO.webp" alt="Woodvalle Logo" class="main-logo">
         </div>
         
         <div class="nav-links">
@@ -19,39 +19,37 @@
             </div>
         </div>
     </nav>
-       
-    <header id="navbar-container"></header>
- 
-    <main class="detalle-producto-container">
-    <div class="detalle-producto-imagen-wrapper"> 
-        <img src="" alt="Cargando..." id="producto-imagen" class="detalle-producto-imagen">
-    </div>
     
-    <div class="detalle-producto-info">
-        <h1 id="producto-titulo"></h1>
-        <p id="producto-artista" class="detalle-artista"></p>
-        <p id="producto-precio" class="detalle-precio"></p>
-        <p id="producto-descripcion"></p>
-
-        <div class="detalle-controles">
-            <div class="quantity-selector">
-                <button type="button" class="quantity-button" id="quantity-decrease">-</button>
-                <input type="number" class="quantity-input" id="quantity-input" value="1" min="1">
-                <button type="button" class="quantity-button" id="quantity-increase">+</button>
-            </div>
-            
-            <button type="button" id="add-to-cart-detalle" class="btn-add">
-                Añadir al Carrito
-            </button>
+    <main class="detalle-producto-container">
+        <div class="detalle-producto-imagen-wrapper"> 
+            <img src="" alt="Cargando..." id="producto-imagen" class="detalle-producto-imagen">
         </div>
-    </div>
-</main>
+        
+        <div class="detalle-producto-info">
+            <h1 id="producto-titulo"></h1>
+            <p id="producto-artista" class="detalle-artista"></p>
+            <p id="producto-precio" class="detalle-precio"></p>
+            <p id="producto-descripcion"></p>
+
+            <div class="detalle-controles">
+                <div class="quantity-selector">
+                    <button type="button" class="quantity-button" id="quantity-decrease">-</button>
+                    <input type="number" class="quantity-input" id="quantity-input" value="1" min="1">
+                    <button type="button" class="quantity-button" id="quantity-increase">+</button>
+                </div>
+                
+                <button type="button" id="add-to-cart-detalle" class="btn-add">
+                    Añadir al Carrito
+                </button>
+            </div>
+        </div>
+    </main>
 
     <script src="../js/main.js"></script>
-    <script src="../js/navbar.js"></script>
     <script src="../js/producto.js"></script>
     <script src="../js/producto-detalle.js"></script>
-
-    <div class="footer">  <p>&copy; 2025 Woodvalle. Te quiero mucho, Taylor Swift.</p>
+    <div class="footer">  
+        <p>&copy; 2025 Woodvalle. Te quiero mucho, Taylor Swift.</p>
+    </div>
 </body>
 </html>

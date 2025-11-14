@@ -4,19 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Woodvalle Vinyl | Tienda de Vinilos</title>
+
+    <script>
+        // Si no hay una sesión activa, redirige inmediatamente a login.html
+        const usuarioLogueadoJSON = sessionStorage.getItem('usuarioLogueado'); 
+        
+        if (!usuarioLogueadoJSON) {
+            window.location.href = './pages/login.html'; 
+        }
+        
+        // Si la sesión existe, el script termina y la página se carga.
+    </script>
     <link rel="stylesheet" href="./css/styles.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav>
         <div class="header-logo-container">
-            <img src="../assets/LOGO.webp" alt="WOODWALLE="main-logo">
+            <img src="../assets/LOGO.webp" alt="WOODVALLE main-logo"> 
         </div>
         
         <div class="nav-links">
-            <p class="nav-slogan">Vinilos y álbumes originales</p>
+            <p class="nav-slogan">Vinilos y álbumes originales</p> 
+            
             <div class="nav-buttons-group">
-                </div>
+            </div>
         </div>
     </nav>
 
@@ -26,9 +38,9 @@
         </section>
         
         <section class="productos-catalogo">
-            <h2>Nuestros Productos Recientes</h2>
+            <h2>Nuestros Productos</h2>
             <div class="products-grid" id="productos-container-home">
-                </div>
+            </div>
         </section>
 
         <div class="featured-bar">
@@ -36,19 +48,18 @@
                 <h2 class="section-title">Novedades Destacadas</h2>
                 <div class="scroller" data-speed="slow">
                     <ul class="tag-list scroller__inner">
-                        </ul>
+                    </ul>
                 </div>
             </div>
         </div>
         
     </main>
-
+    
     <div class="footer"> 
         <p>&copy; 2025 Woodvalle. Te quiero mucho, Taylor Swift.</p>
     </div>
 
-    <script src="./js/main.js"></script>
-    
+    <script src="./js/main.js"></script> 
     <script type="module" src="./js/index.js"></script>
     
 </body>

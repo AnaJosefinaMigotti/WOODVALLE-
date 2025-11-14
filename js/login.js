@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const email = emailInput.value;
         const password = passwordInput.value;
 
-        // Credenciales de prueba
+        // credencial dde prueba
         const emailValido = 'usuario@woodvalle.com';
         const passwordValido = '12345';
         
-        // Datos del usuario que se guardarán en sesión
+        // datos del usuario que se guardarán en sesión
         const datosUsuario = {
             id: '1', 
             nombre: 'Woodvalle User',
@@ -24,12 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (email === emailValido && password === passwordValido) {
             // login hecho
             sessionStorage.setItem('usuarioLogueado', JSON.stringify(datosUsuario)); 
-
-            // ✅ AHORA: Desde /pages/login.html, necesitas subir un nivel para llegar a index.html
             window.location.href = '../index.html';
 
         } else {
-            // Mensaje de error
+            // mensaje de error
             errorMessage.textContent = 'Email o contraseña incorrectos.';
             errorMessage.style.display = 'block'; 
         }

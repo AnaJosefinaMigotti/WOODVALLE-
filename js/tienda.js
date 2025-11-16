@@ -80,9 +80,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (filtro === 'todos') {
                     productosFiltrados = productosDisponibles;
                 } else {
-                    // filtros .json
-                    productosFiltrados = productosDisponibles.filter(producto => producto.categoria === filtro);
-                }
+                        productosFiltrados = productosDisponibles.filter(producto => 
+                         producto.categoria.toLowerCase().includes(filtro)
+                     );
+                 }
                 renderizarCardsTienda(productosFiltrados);
             });
         });

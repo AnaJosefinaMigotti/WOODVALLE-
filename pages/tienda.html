@@ -26,12 +26,23 @@
             <img src="../assets/FOLKLORE.webp" alt="FOLKLORE" class="hero-image">
         </section>
 
-        <section class="productos-catalogo">
-            <h2>Catálogo Completo</h2>
-            <div class="products-grid" id="tienda-productos-container">
+        <section class="productos-catalogo">        
+        <div class="contenedor-tienda"> 
+
+            <aside class="sidebar-categorias">
+                <h3>Clasificación</h3>
+                <ul>
+                    <li><a href="#" class="filtro-btn activo" data-filtro="todos">Todos los Productos</a></li>
+                    <li><a href="#" class="filtro-btn" data-filtro="vinilo">Vinilos</a></li>
+                    <li><a href="#" class="filtro-btn" data-filtro="cd">CDs</a></li>
+                </ul>
+            </aside>
+
+            <div class="products-grid contenedor-productos" id="tienda-productos-container">
                 </div>
-        </section>
-    </main> 
+
+        </div> </section>
+</main>
 
     <script src="../js/main.js"></script> 
     <script type="module" src="../js/tienda.js"></script>

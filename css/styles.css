@@ -523,6 +523,70 @@ nav .logo {
   border-bottom: 3px solid #b58b4b; 
 }
 
+/* filtros categoria */
+.contenedor-tienda {
+    display: flex;
+    gap: 30px; /* espacio side bar y productos */
+    margin-top: 20px;
+}
+
+.sidebar-categorias h3 {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.sidebar-categorias ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-categorias li {
+    margin-bottom: 5px;
+}
+
+.filtro-btn {
+    text-decoration: none;
+    color: #444;
+    display: block;
+    padding: 5px 10px;
+    transition: all 0.2s;
+    font-size: 1em;
+}
+
+/* side bar */
+.sidebar-categorias {
+    width: 200px; 
+    flex-shrink: 0; 
+    padding: 15px; 
+    background-color: #ffffff; 
+    border: 1px solid #e0e0e0; 
+    border-radius: 8px; /* bordes */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* sombra */
+    height: fit-content; 
+}
+
+/* título de la sección */
+.sidebar-categorias h3 {
+    font-size: 1.1em; 
+    margin-bottom: 12px; 
+    color: #555; 
+    border-bottom: 1px solid #eee; 
+    padding-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+/* estilo para seleccionar */
+.filtro-btn.activo,
+.filtro-btn:hover {
+    color: #000;
+    font-weight: 600;
+    background-color: #f0f0f0; 
+}
+
 /* media */
 @media (max-width: 768px) {
    .detalle-producto-container {

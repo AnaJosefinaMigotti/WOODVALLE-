@@ -2,7 +2,9 @@ import { fetchProductos } from './dataservice.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     
+    // Elementos del DOM
     const productosContainer = document.getElementById('tienda-productos-container'); 
+    const botonesFiltro = document.querySelectorAll('.filtro-btn'); // sidebar categorías
     if (!productosContainer) return; 
 
     let todosLosProductos = []; 
@@ -10,15 +12,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         todosLosProductos = await fetchProductos(); 
         renderizarCardsTienda(todosLosProductos); 
-        iniciarLogicaBotones(todosLosProductos); 
+        iniciarLogicaBotones(todosLosProductos);
+        iniciarLogicaFiltro(todosLosProductos); 
 
     } catch (error) {
         console.error("Fallo al cargar la Tienda:", error);
         productosContainer.innerHTML = '<p class="error-msg">Error: No se pudieron cargar los productos de la tienda. Asegúrate de que data/producto.json existe.</p>';
     }
 
+    // funcionees
     function renderizarCardsTienda(productos) {
         productosContainer.innerHTML = ''; 
+
+        if (productos.length === 0) {
+            productosContainer.innerHTML = '<p class="mensaje-sin-productos">No se encontraron productos para esta clasificación.</p>';
+            return;
+        }
 
         productos.forEach(producto => {
             const precioFormateado = producto.precio.toLocaleString('es-AR', {
@@ -26,8 +35,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 maximumFractionDigits: 0
             });
 
+            // NOTA: El data-categoria debe coincidir con los data-filtro (vinilo/cd)
             productosContainer.innerHTML += `
-                <div class="product-card" data-id="${producto.id}" data-categoria="${producto.categoria}">
+                <div class="product-card" data-id="${producto.id}" data-categoria="${producto.categoria}"> 
                     <img src="${producto.imagen}" alt="${producto.titulo}" class="card-image">
                     <div class="card-body">
                         <p class="card-artist">${producto.artista}</p>
@@ -47,10 +57,40 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `;
         });
+        
+        // Es importante reinicializar los botones de compra después de cada renderizado
+        iniciarLogicaBotones(productos); 
+    }
+
+    // filtradoooo
+    function iniciarLogicaFiltro(productosDisponibles) {
+        
+        botonesFiltro.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault(); // evito saltar al inicio
+                botonesFiltro.forEach(b => b.classList.remove('activo'));
+                e.target.classList.add('activo');
+
+                // obtener filtro
+                const filtro = e.target.dataset.filtro;
+                
+                // aplicar filtro
+                let productosFiltrados;
+
+                if (filtro === 'todos') {
+                    productosFiltrados = productosDisponibles;
+                } else {
+                    // filtros .json
+                    productosFiltrados = productosDisponibles.filter(producto => producto.categoria === filtro);
+                }
+                renderizarCardsTienda(productosFiltrados);
+            });
+        });
     }
 
     function iniciarLogicaBotones(productosDisponibles) {
-        const botonesComprar = document.querySelectorAll('.btn-comprar');
+        const botonesComprar = document.querySelectorAll('.btn-comprar'); 
+        
         botonesComprar.forEach(boton => {
             boton.addEventListener('click', (event) => {
                 const botonClickeado = event.target;

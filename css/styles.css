@@ -158,7 +158,7 @@ nav .logo {
 
 /* cards index */
 .product-card .card-artist {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: var(--primary-dark-green);
     margin-bottom: 5px;
     font-weight: bold;
@@ -167,13 +167,13 @@ nav .logo {
 .product-card .card-title {
     font-family: 'Lora', serif;
     font-weight: 700;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: var(--primary-dark-green);
     margin-bottom: 10px;
 }
 
 .product-card .card-price {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: bold;
     color: var(--primary-dark-green); 
     margin-bottom: 15px;

@@ -2,7 +2,6 @@ import { fetchProductos } from './dataservice.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     
-    // Elementos del DOM
     const productosContainer = document.getElementById('tienda-productos-container'); 
     const botonesFiltro = document.querySelectorAll('.filtro-btn'); // sidebar categorías
     if (!productosContainer) return; 
@@ -35,7 +34,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 maximumFractionDigits: 0
             });
 
-            // NOTA: El data-categoria debe coincidir con los data-filtro (vinilo/cd)
             productosContainer.innerHTML += `
                 <div class="product-card" data-id="${producto.id}" data-categoria="${producto.categoria}"> 
                     <img src="${producto.imagen}" alt="${producto.titulo}" class="card-image">
@@ -58,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
         });
         
-        // Es importante reinicializar los botones de compra después de cada renderizado
+        
         iniciarLogicaBotones(productos); 
     }
 

@@ -110,7 +110,6 @@ nav .logo {
     flex-shrink: 0;  
 }
 
-
 /* layout */
 .products-grid {
     display: grid;
@@ -142,7 +141,7 @@ nav .logo {
 
 .card-image {
     width: 100%;
-    height: 300px;
+    height: 200px;
     object-fit: cover;
     border-bottom: 5px solid var(--primary-color);
 }
@@ -156,7 +155,7 @@ nav .logo {
     justify-content: space-between;
 }
 
-/* cards index */
+/* fonts */
 .product-card .card-artist {
     font-size: 1.2rem;
     color: var(--primary-dark-green);
@@ -186,7 +185,7 @@ nav .logo {
     padding: 12px 0; 
     border-radius: 8px;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.0rem;
     transition: background-color 0.3s;
     display: block;
     margin: 15px auto 0 auto;
